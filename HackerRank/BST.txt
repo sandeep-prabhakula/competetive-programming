@@ -1,0 +1,89 @@
+import java.util.*;
+
+public class BSTNewVersion {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int t = scan.nextInt();
+        while(t-->0){
+            TreeNodeVersionNew root = null;
+            int n = scan.nextInt();
+            for(int i=0;i<n;i++) {
+                int data = scan.nextInt();
+                root = insert(root, data);
+            }
+            System.out.println();
+            preOrder(root);
+            System.out.println();
+            inOrder(root);
+            System.out.println();
+            postOrder(root);
+            System.out.println();
+            System.out.println(height(root));
+        }
+        scan.close();
+    }
+        public static TreeNodeVersionNew insert(TreeNodeVersionNew root,int data) {
+        if(root==null){
+            TreeNodeVersionNew node=new TreeNodeVersionNew(data);
+            node.left=null;
+            node.right=null;
+            root=node;
+        }
+        if(root.data > data){
+            root.left = insert(root.left,data); 
+        }
+        else if(root.data<data){
+            root.right = insert(root.right,data);
+        }
+        return root;
+        
+    }
+    public static void preOrder( TreeNodeVersionNew root ) {
+      
+        if( root == null)
+            return;
+      
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+     
+    }
+    public static void inOrder( TreeNodeVersionNew root ) {
+      
+        if( root == null)
+            return;
+      
+        inOrder(root.left);
+        System.out.print(root.data + " ");
+        inOrder(root.right);
+     
+    }
+    public static void postOrder( TreeNodeVersionNew root ) {
+      
+        if( root == null)
+            return;
+      
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.data + " ");
+    }
+    public static int height(TreeNodeVersionNew root) {
+        if(root == null) {
+          return -1;
+      }
+      return Math.max(height(root.left), height(root.right)) + 1;
+  }
+}
+
+class TreeNodeVersionNew {
+    TreeNodeVersionNew left;
+    TreeNodeVersionNew right;
+    int data;
+    
+    TreeNodeVersionNew(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
