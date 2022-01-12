@@ -1,0 +1,15 @@
+class Solution {
+    public String capitalizeTitle(String title) {
+        String[] strs = title.split(" ");
+        int n = strs.length;
+        String res = "";
+        for(String str:strs){
+            if(str.length()>2){
+                res += str.substring(0,1).toUpperCase()+str.substring(1,str.length()).toLowerCase()+" ";
+            }else {
+                res += str.toLowerCase()+" ";
+            }
+        }
+        return res.trim();
+    }
+}
