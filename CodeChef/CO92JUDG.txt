@@ -1,0 +1,45 @@
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+		    int n = sc.nextInt();
+		    // write code here
+		    List<Integer>al = new ArrayList<>();
+		    List<Integer>bo = new ArrayList<>();
+		    for(int i=0;i<n;i++){
+		        al.add(sc.nextInt());
+		    }
+		    for(int i=0;i<n;i++){
+		        bo.add(sc.nextInt());
+		    }
+		    PriorityQueue<Integer>pq = new PriorityQueue(Collections.reverseOrder());
+		    pq.addAll(al);
+		    int alSum = 0;
+		    int boSum = 0;
+		    for(int i=0;i<n;i++){
+		        alSum += al.get(i);
+		    }
+		    alSum -= pq.peek();
+		    pq.clear();
+		    pq.addAll(bo);
+		    for(int i=0;i<n;i++){
+		        boSum += bo.get(i);
+		    }
+		    boSum -= pq.peek();
+		    pq.clear();
+		    if(alSum<boSum)System.out.println("Alice");
+		    else if(boSum<alSum)System.out.println("Bob");
+		    else System.out.println("Draw");
+		}
+	}
+}
