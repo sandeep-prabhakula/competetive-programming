@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class presents {
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] input = new int[n];
+        int[] output = new int[n];
+        for (int i = 0; i < n; i++) {
+            input[i] = scn.nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            int x = input[i];
+            output[x - 1] = i + 1;
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.print(output[i]+" ");
+        }
+
+    }
+}
