@@ -1,0 +1,13 @@
+public static long taskOfPairing(List<Long> freq) {
+        long ans = 0;
+        long rem = 0;
+        for(int i=0;i<freq.size();i++){
+            if(freq.get(i)!=0){
+                ans += (freq.get(i)+rem)/2;
+                rem = (freq.get(i) + rem)%2;
+            }else{
+                rem = 0;
+            }
+        }
+        return ans;
+    }

@@ -1,0 +1,28 @@
+public class Solution {
+    public String fractionToDecimal(int a, int b) {
+        LinkedHashMap<Long, Long> lhm = new LinkedHashMap<>();
+        StringBuilder sb = new StringBuilder();
+        long x=a, y=b;
+        if((a<0 && b>0) || (a>0 && b<0))
+            sb.append("-");
+        x = (long)Math.abs(x);
+        y = (long)Math.abs(y);
+        sb.append(x/y);
+        long rem=x%y;
+        while(rem!=0 && !lhm.containsKey(rem)) {
+            long z=rem*10;
+            lhm.put(rem, z/y);
+            rem=z%b;
+        }
+        if(!lhm.isEmpty())
+            sb.append(".");
+        for(Map.Entry<Long, Long> me:lhm.entrySet()) {
+            if(me.getKey()==rem)
+                sb.append("(");
+            sb.append(me.getValue());
+        }
+        if(rem!=0)
+            sb.append(")");
+        return sb.toString(); 
+    }
+}

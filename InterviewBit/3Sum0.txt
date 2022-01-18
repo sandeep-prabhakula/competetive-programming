@@ -1,0 +1,29 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> threeSum(ArrayList<Integer> a) {
+         Set<ArrayList<Integer>> res=new LinkedHashSet<>();
+        int l=a.size();
+        if(l<3)
+            return new ArrayList<ArrayList<Integer>>(res);
+        Collections.sort(a);
+        // System.out.println(a);
+        for(int i=0; i<l-2; i++) {
+            int j=i+1, k=l-1, m=a.get(i);
+            while(j<k) {
+                long n=a.get(j), o=a.get(k);
+                long s=m+n+o;
+                if(s==0) {
+                    ArrayList<Integer> ar=new ArrayList<>();
+                    ar.add(a.get(i));
+                    ar.add(a.get(j++));
+                    ar.add(a.get(k--));
+                    res.add(ar);
+                } else if(s<0)
+                    j++;
+                else
+                    k--;
+            }
+        }
+        // System.out.println(res);
+        return new ArrayList<ArrayList<Integer>>(res);
+    }
+}

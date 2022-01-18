@@ -1,0 +1,11 @@
+public class Solution {
+    public int findMedian(ArrayList<ArrayList<Integer>> A) {
+        int l = 0;
+        int rRow = A.size();
+        int rCol = A.get(0).size();
+        int midRow = (l+rRow)/2;
+        int midCol = (l+rCol)/2;
+        return A.get(midRow).get(midCol);
+        // Check soluton in Java7;
+    }
+}

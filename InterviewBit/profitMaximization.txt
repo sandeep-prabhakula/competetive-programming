@@ -1,0 +1,16 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int ans = 0;
+        PriorityQueue<Integer>pq = new PriorityQueue<>(Collections.reverseOrder());
+        pq.addAll(A);
+        while(B!=0){
+            int k = pq.peek();
+            pq.poll();
+            ans += k;
+            k--;
+            pq.add(k);
+            B--;
+        }
+        return ans;
+    }
+}

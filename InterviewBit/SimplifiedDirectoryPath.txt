@@ -1,0 +1,22 @@
+public class Solution {
+public String simplifyPath(String A) {
+return “/” + String.join("/", sp(A));
+}
+
+public Deque<String> sp(String A){
+    
+    Deque<String> dq = new LinkedList<>();
+    
+    for(String str : A.split("/")){
+        
+        if(str.equals("") || str.equals(".")) continue;
+        
+        if(str.equals("..")){
+          if(dq.size()!=0) dq.removeLast();  
+        }
+        else dq.addLast(str);
+    }
+    
+    return dq;
+}
+}

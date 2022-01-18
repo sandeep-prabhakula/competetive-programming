@@ -1,0 +1,19 @@
+public class Solution {
+	public void rotate(ArrayList<ArrayList<Integer>> A) {
+	    int t = 0;
+        for(int i=0 ; i < A.get(0).size() ; i++){
+            for(int j=0 ; j < i ; j++){
+                t = A.get(i).get(j);
+                A.get(i).set(j,A.get(j).get(i));
+                A.get(j).set(i,t);
+            }
+        }
+        for(int i = 0 ; i < A.get(0).size() ; i ++) {
+            for(int j=0 ; j < A.get(0).size()/2 ; j++) {
+                t = A.get(i).get(A.get(0).size() - 1- j); 
+                A.get(i).set(A.get(0).size() - 1- j,A.get(i).get(j));
+                A.get(i).set(j,t);
+            }
+        }
+	}
+}

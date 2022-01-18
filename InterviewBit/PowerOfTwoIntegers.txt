@@ -1,0 +1,16 @@
+public class Solution {
+    public int isPower(int num) {
+
+        //perfect squares
+        int a = (int)Math.sqrt(num);
+        if(a*a == num) return 1;
+
+        //bruteforce 
+        for(int i = a-1 ; i> 1;i--)
+        for(int j=2;j<Integer.MAX_VALUE;j++){
+            if(Math.pow(i,j) == num) return 1;
+            if(Math.pow(i,j) > num) break;
+        }
+        return 0;
+    }
+}

@@ -1,0 +1,44 @@
+import java.util.*;
+public class Solution {
+    public int romanToInt(String s) {
+        s.toUpperCase();
+        char[] a = new char[s.length()];
+        for(int i=0;i<s.length();i++){
+            a[i] = s.charAt(i);
+        }
+        int sum = 0;
+        int num1;
+        int num2;
+        for(int i=0;i<a.length-1;i++){
+            num1 = get(a[i]);
+            num2 = get(a[i+1]);
+            if(num1>=num2){
+                sum += num1;
+            }
+            else{
+                sum -= num1;
+            }
+        }
+        sum+=get(a[a.length-1]);
+        return sum;
+    }
+    static int get(char a){
+        switch(a){
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+        }
+        return 0;
+    }
+}

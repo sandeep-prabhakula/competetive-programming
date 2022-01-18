@@ -1,0 +1,11 @@
+public class Solution {
+	public void arrange(ArrayList<Integer> a) {
+	 HashMap<Integer, Integer> hm = new HashMap<>();
+        for (int i =0; i < a.size() ; i++){
+            hm.put(i,a.get(a.get(i)));
+        }
+        for (int i =0; i< a.size() ; i++){
+            a.set(i, hm.get(i));
+        }   
+	}
+}

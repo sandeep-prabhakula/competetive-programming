@@ -1,0 +1,11 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int lengthOfLastWord(final String A) {
+        if(A == " "){
+            return 0;
+        }
+        A.trim();
+        String[] s = A.split("\\s");
+        return s[s.length-1].length();
+    }
+}

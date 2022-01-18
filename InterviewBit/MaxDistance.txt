@@ -1,0 +1,26 @@
+class Pair implements Comparable<Pair> {
+    int val, idx;
+    Pair(int val, int idx) {
+        this.val = val;
+        this.idx = idx;
+    }
+    public int compareTo(Pair p) {
+        return this.val - p.val;
+    }
+}
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int maximumGap(final List<Integer> A) {
+         Pair P[] = new Pair[A.size()];
+        for(int i = 0; i < A.size(); i++) {
+            P[i] = new Pair(A.get(i), i);
+        }
+        Arrays.sort(P);
+        int currMin = P[0].idx, res = 0;
+        for(int i = 1; i < P.length; i++) {
+            res = Math.max(res, P[i].idx - currMin);
+            currMin = Math.min(currMin, P[i].idx);
+        }
+        return res;
+    }
+}

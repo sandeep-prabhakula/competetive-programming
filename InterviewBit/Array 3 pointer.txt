@@ -1,0 +1,26 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int minimize(final int[] num1, final int[] num2, final int[] num3) {
+        int i = 0, j = 0, k = 0, p = Integer.MAX_VALUE, q, r, s;
+        while (i < num1.length && j < num2.length && k < num3.length){
+            q = num1[i];
+            r = num1[i];
+            s = 1;
+            if (num2[j] < q){
+                q = num2[j];
+                s = 2;
+            }
+            if (num3[k] < q){
+                q = num3[k];
+                s = 3;
+            }
+            r = Math.max(r, num2[j]);
+            r = Math.max(r, num3[k]);
+            p = Math.min(p, r - q);
+            if (s == 1)i++;
+            else if (s == 2)j++;
+            else k++;
+        }
+        return p;
+    }
+}

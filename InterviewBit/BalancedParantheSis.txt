@@ -1,0 +1,34 @@
+public class Solution {
+    public int solve(String A) {
+        Stack stack=new Stack<>();
+
+    for(int i=0;i<A.length();i++){
+        if(A.charAt(i)=='{'||A.charAt(i)=='('||A.charAt(i)=='['){
+            stack.push(A.charAt(i));
+        }
+        else if(stack.isEmpty()){
+            return 0;
+        }
+        else{
+            char pip=stack.pop();
+            if(A.charAt(i)==')'&&pip!='('){
+                return 0;
+            }
+            if(A.charAt(i)==']'&&pip!='['){
+                return 0;
+            }
+            if(A.charAt(i)=='}'&&pip!='{'){
+                return 0;
+            }
+        }
+        
+        
+    }
+    if(stack.isEmpty()){
+        return 1;
+    }
+    else {
+        return 0;
+    }
+    }
+}

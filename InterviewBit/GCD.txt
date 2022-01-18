@@ -1,0 +1,10 @@
+public class Solution {
+    public int gcd(int A, int B) {
+        int rem = 0;
+        int div = 0;
+        while(A!=0){
+            rem = A%B;
+            div = A;
+        }
+    }
+}

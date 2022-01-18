@@ -1,0 +1,17 @@
+int Solution::maxSpecialProduct(vector<int> &A) {
+    stack fi;
+long long int ma=0;
+for(int i=0; i<A.size(); i++){
+while(!fi.empty() && A[i]>A[fi.top()]){
+if(!fi.empty())
+fi.pop();
+if(!fi.empty())
+ma=max(ma,fi.top()1lli);
+}
+if(!fi.empty() && A[fi.top()]==A[i])
+continue;
+fi.push(i);
+}
+ma=ma%1000000007;
+return ma;
+}

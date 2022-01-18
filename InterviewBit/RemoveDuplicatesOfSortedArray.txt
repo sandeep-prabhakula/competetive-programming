@@ -1,0 +1,14 @@
+import java.util.*;
+public class Solution {
+    public int removeDuplicates(ArrayList<Integer> a) {
+        int p1=0,p2=1;
+        while(p2<a.size()){
+            if(a.get(p1).equals(a.get(p2)))a.remove(p2);
+            else{
+            p1++;
+            p2++;
+            }
+        }
+        return a.size();
+    }
+}

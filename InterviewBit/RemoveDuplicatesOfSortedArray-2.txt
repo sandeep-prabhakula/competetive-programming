@@ -1,0 +1,8 @@
+public class Solution {
+    public int removeDuplicates(ArrayList<Integer> a) {
+        int count=0, cntAllowed=2;
+        for(int i: a)
+            if(count<cntAllowed || i>a.get(count-cntAllowed))   a.set(res++, i);
+        return res;
+    }
+}
