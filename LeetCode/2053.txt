@@ -1,0 +1,16 @@
+class Solution {
+    public String kthDistinct(String[] arr, int k) {
+        Map<String,Integer>map = new HashMap<>();
+        for(String i:arr){
+            if(map.containsKey(i))map.put(i,map.get(i)+1);
+            else map.put(i,1);
+        }
+        for(String i:arr){
+            if(map.containsKey(i)){
+                if(map.get(i)==1)k--;
+                if(k==0) return i;
+            }
+        }
+        return "";
+    }
+}

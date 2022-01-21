@@ -1,0 +1,20 @@
+public class Solution {
+    public int sqrt(int A) {
+        if (A < 2) return A;
+        if (A < 4) return 1;
+        int l = 0, h = A / 2;
+        int m = l + (h - l) / 2;
+        int counter=0;
+        while (l <= h) {
+            counter++;
+            m = l + (h - l) / 2;
+            long square = (long) m * m;
+
+            if (square == A) return m;
+            else if (square < A) l = m + 1;
+            else h = m - 1;
+    }
+    if (m * m < A) return m;
+    return m - 1;
+    }
+}

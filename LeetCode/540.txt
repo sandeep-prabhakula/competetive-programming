@@ -1,0 +1,27 @@
+class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        if(nums.length == 1) return nums[0];
+        
+        int n = nums.length;       
+		// Below 2 lines deal with possible indexOutOfBoundException
+        if(nums[0] != nums[1]) return nums[0];
+        if(nums[n - 1] != nums[n - 2]) return nums[n - 1];
+        
+		// then we can safely deal with middle elements(1 to n - 2) without worring about exception
+        int l = 1;
+        int r = n - 2;
+        while(l < r){
+            int m = l + (r - l)/2;
+            boolean isEvenIdx = ((m & 1) == 0);
+            if(isEvenIdx && nums[m] == nums[m + 1]){
+                l = m + 2; // it is on the right side of m + 1, exclusively
+            }else if (!isEvenIdx && nums[m] == nums[m - 1]){
+                l = m + 1;
+            }else{
+                r = m;    
+            }
+        }
+        
+        return nums[l];
+    }
+}
