@@ -1,3 +1,4 @@
+//Number of Strings That Appear as Substrings in Word    
 class Solution {
     public int numOfStrings(String[] p, String word) {
         int count = 0;

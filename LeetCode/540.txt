@@ -1,3 +1,4 @@
+//Single Element in a Sorted Array
 class Solution {
     public int singleNonDuplicate(int[] nums) {
         if(nums.length == 1) return nums[0];

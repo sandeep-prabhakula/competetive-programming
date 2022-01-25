@@ -1,0 +1,19 @@
+public class Solution {
+    long M = 1000000007;
+    public int solve(String A) {
+        long c = 0;
+        long v = 0;
+        for(int i=0;i<A.length();i++){
+            if(A.charAt(i)=='a'||
+                A.charAt(i)=='e'||
+                A.charAt(i)=='i'||
+                A.charAt(i)=='o'||
+                A.charAt(i)=='u'
+            ){
+            v = (v+1)%M;
+            }else c = (c+1)%M;
+        }
+        long ans = (c*v)%M;
+        return (int)ans;
+    }
+}
