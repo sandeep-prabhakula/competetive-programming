@@ -1,0 +1,54 @@
+// find in mountainArray
+
+//1.find the peak
+//2.traverse the first half till the peak; if (-1)goto step3
+//3.traverse the another half from the peak to end of the array; if(-1)return -1;
+
+/**
+ * // This is MountainArray's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface MountainArray {
+ *     public int get(int index) {}
+ *     public int length() {}
+ * }
+ */
+ 
+class Solution {
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int n = mountainArr.length();
+        int peak = searchPeak(mountainArr,n-1);
+        int ind = searchElement(mountainArr,0,peak,true,target);
+        if(ind==-1){
+            ind = searchElement(mountainArr,peak+1,n-1,false,target);
+        }
+        return ind;
+    }
+    
+    public static int searchElement(MountainArray m,int lo,int hi,boolean inc,int t){
+        while(lo<=hi){
+            int mid = lo+(hi-lo)/2;
+            if(m.get(mid)==t)return mid;
+            else if(m.get(mid)>t){
+                if(inc)hi = mid-1;
+                else lo = mid+1;
+            }else{
+                if(inc)lo = mid+1;
+                else hi = mid-1;
+            }
+        }
+        return -1;
+    }
+    
+    public static int searchPeak(MountainArray m,int n){
+        int lo= 0;
+        int peak = 0;
+        while(lo<=n){
+            int mid = lo+(n-lo)/2;
+            if(mid==0 || m.get(mid)>m.get(mid-1)){
+                peak = mid;
+                lo = mid+1;
+            }else n = mid-1;
+        }
+        return peak;
+    }
+}
