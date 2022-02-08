@@ -1,0 +1,16 @@
+int check(TreeNode*A,int min,int max)
+{
+    if(A==NULL)
+    {
+        return 1;
+    }
+    if(A->val<min||A->val>max)
+    {
+        return 0;
+    }
+    return check(A->left,min,A->val-1)&&
+            check(A->right,A->val+1,max);
+}
+int Solution::isValidBST(TreeNode* A) {
+    return(check(A,INT_MIN,INT_MAX));
+}
