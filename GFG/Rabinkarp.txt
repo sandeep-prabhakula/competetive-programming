@@ -1,0 +1,63 @@
+package final450;
+
+import java.io.*;
+
+public class RabinKarpAlgorithm {
+
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int k = Integer.parseInt(br.readLine());
+        int d = 256;
+        while(k-->0){
+            String[] arr = br.readLine().split(" ");
+            String pat = arr[0];
+            String txt = arr[1];
+            int i, j;
+            int count = 0;
+            int p = 0; 
+            int t = 0; 
+            int h = 1;
+            int q = 101;
+            int M = pat.length();
+            int N = txt.length();
+            for (i = 0; i < M-1; i++)
+                h = (h*d)%q;
+            
+            // calculate the hash value of pattern and first window hash value
+            for(i=0;i<M;i++){
+                p = (d*p + pat.charAt(i))%q;
+                t = (d*t + txt.charAt(i))%q;
+            }
+            
+            // slide the window index by index
+            for (i = 0; i <= N - M; i++){
+            	
+            // check if both the hash values are same
+            if ( p == t ){
+            	// check if there exists same characters
+                for (j = 0; j < M; j++){
+                	//check if pattern char matches text char
+                    if (txt.charAt(i+j) != pat.charAt(j))
+                        break;
+                }
+                
+                // all iterations are done or not for checking chars
+                if (j == M)
+                	// if all iterations done increment count 
+                    count++;
+            }
+            
+            // slide the window
+            if ( i < N-M ){
+            	
+            	// Rolling hash 
+                t = (d*(t - txt.charAt(i)*h) + txt.charAt(i+M))%q;
+                
+                if (t < 0)
+                t = (t + q);
+            }
+        }
+        System.out.println(count);
+        }
+    }
+}
