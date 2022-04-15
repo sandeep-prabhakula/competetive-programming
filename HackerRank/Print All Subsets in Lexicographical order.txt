@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine());
+            String []temp = br.readLine().split(" ");
+            int[]ar = new int[n];
+            for(int i=0;i<n;i++){
+                ar[i] = Integer.parseInt(temp[i]);
+            }
+            Arrays.sort(ar);
+            ArrayList<ArrayList<Integer>>subsets = new ArrayList<>();
+            generateSubsets(ar,subsets);
+            Collections.sort(subsets,new Comparator<ArrayList<Integer>>(){
+                @Override
+                public int compare(ArrayList<Integer>first,ArrayList<Integer>second){
+                    int comp = 0;
+                    for(int i = 0; i < Math.min(first.size(), second.size()); i++){
+                        comp = Integer.compare(first.get(i), second.get(i));
+                        if(comp != 0){
+                            return comp;
+                        }
+                    }
+                    return Integer.compare(first.size(), second.size());
+                }
+            });
+            for(ArrayList<Integer>list:subsets){
+                for(int ele:list)bw.write(ele+" ");
+                bw.write("\n");
+            }
+            bw.write("\n");
+        }
+        bw.flush();
+    }
+    public static boolean checkBit(int i,int j){
+        return ((i>>j)&1)!=0;
+    }
+    public static void generateSubsets(int [] ar,ArrayList<ArrayList<Integer>>subsets){
+        int n = 1<<ar.length;
+        int m = ar.length;
+        for(int i=1;i<n;i++){
+            ArrayList<Integer>temp = new ArrayList();
+            for(int j=0;j<m;j++){
+                if(checkBit(i,j))temp.add(ar[j]);
+            }
+            subsets.add(temp);
+        }
+    }
+}
