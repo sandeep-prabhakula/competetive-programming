@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            String[]req = br.readLine().split(" ");
+            int n = Integer.parseInt(req[0]);
+            int k = Integer.parseInt(req[1]);
+            String [] temp = br.readLine().split(" ");
+            ArrayList<Integer>ar = new ArrayList();
+            for(int i=0;i<n;i++){
+                ar.add(Integer.parseInt(temp[i]));
+            }
+            ArrayList<Integer>res = slidingWindow(ar,k);
+            int sum = 0;
+            for(int i:res)sum+=i;
+            bw.write(sum+"\n");
+        }
+        bw.flush();
+    }
+     public static ArrayList<Integer> slidingWindow(final List<Integer> A, int B) {
+        int n=A.size();
+        if(n<=1){
+            ArrayList<Integer>ans=new ArrayList<>();
+            ans.addAll(A);
+            return ans;
+        }
+        Deque<Integer>dq=new LinkedList<>();
+        ArrayList<Integer>ans=new ArrayList<>();
+        int i=0;
+        for( ;i<B;i++){
+            while(!dq.isEmpty() && A.get(dq.peekLast())<=A.get(i)){
+                dq.removeLast();
+            }
+            dq.addLast(i);
+        }
+        for( ;i<n;i++){
+            ans.add(i-B,A.get(dq.peekFirst()));
+            while(!dq.isEmpty() && dq.peekFirst() <= i-B){
+                dq.removeFirst();
+            }
+            while(!dq.isEmpty() && A.get(dq.peekLast())<=A.get(i)){
+                dq.removeLast();
+            }
+            dq.addLast(i);
+        }
+        ans.add(i-B,A.get(dq.peekFirst()));
+        return ans;
+    }
+}
