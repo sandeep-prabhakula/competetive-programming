@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        Trie root = new Trie();
+        while(t-->0){
+            String  st = br.readLine();
+            root.insert(root,st);
+        }
+        int n = Integer.parseInt(br.readLine());
+        while(n-->0){
+            String q = br.readLine();
+            bw.write(root.suffix(root,q)+"\n");
+        }
+        bw.flush();
+    }
+}
+class Trie{
+    int len ;
+    Trie[]child;
+    Trie(){
+        child = new Trie[26];
+        this.len = 0;
+        for(int i=0;i<26;i++){
+            this.child[i] = null;
+        }
+    }
+    public static void insert(Trie root,String s){
+        int n = s.length();
+        for(int i=n-1;i>=0;i--){
+            int idx = s.charAt(i)-97;
+            if(root.child[idx] == null)root.child[idx] = new Trie();
+            root.len = Math.max(root.len,n);
+            root.child[idx].len = Math.max(root.child[idx].len, n);
+            root = root.child[idx];
+        }
+    }
+    public static int suffix(Trie root, String s){
+        if(root.child[s.charAt(s.length()-1)-97] == null) return 0;
+        int i;
+        for(i = s.length()-1; i >= 0; i--){
+            int idx = s.charAt(i)-97;
+            if(root.child[idx] == null) {
+                return root.len;
+            }
+            root = root.child[idx];
+        }
+        return root.len;
+    }
+}

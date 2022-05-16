@@ -1,0 +1,28 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int r , i,j, t,x = 1;
+        t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            r = Integer.parseInt(br.readLine());
+            bw.write("Case #"+x+":\n");
+            x++;
+            for(i=1;i<=r;i++){
+                for( j=0;j<r-i;j++){
+                    bw.write(" ");
+                }
+                for( j=0;j<i;j++){
+                    bw.write("*");
+                }
+                bw.write("\n");
+            }
+        }
+        bw.flush();
+    }
+}
+

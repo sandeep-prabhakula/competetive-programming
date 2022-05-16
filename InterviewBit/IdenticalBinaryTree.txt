@@ -1,0 +1,14 @@
+public class Solution {
+    public int isSameTree(TreeNode A, TreeNode B) {
+        if(check(A,B))return 1;
+        return 0;
+    }
+    public boolean check(TreeNode root1, TreeNode root2){
+        if(root1==null && root2==null)return true;
+        if(root2==null || root1==null)return false;
+        if(root1.val !=root2.val)return false;
+        boolean lp = check(root1.left,root2.left);
+        boolean rp = check(root1.right,root2.right);
+        return (lp&&rp);
+    }
+}

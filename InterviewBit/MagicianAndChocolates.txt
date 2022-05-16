@@ -1,0 +1,16 @@
+public class Solution {
+    int mod = 1000000007;
+    public int nchoc(int A, ArrayList<Integer> B) {
+        int count = 0;
+        PriorityQueue<Integer>pq = new PriorityQueue(Collections.reverseOrder());
+        pq.addAll(B);
+        while(A-->0){
+            if(!pq.isEmpty()){
+                int bi = pq.poll();
+                count = (count%mod)+(bi%mod);
+                pq.add(bi/2);
+            }
+        }
+        return count%mod;
+    }
+}

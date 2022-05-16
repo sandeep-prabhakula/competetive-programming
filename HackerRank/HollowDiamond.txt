@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t,r,k,i,j,x = 1,temp=1;
+        t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            r = Integer.parseInt(br.readLine());
+        bw.write("Case #"+x+":\n");
+            x++;
+        for(i=1; i<=r/2+1;i++)
+        {
+            if( i==1)
+            {
+                for(j=1;j<=r/2;j++)
+                  bw.write(" ");
+                bw.write("*\n");             
+            }
+            else
+            {
+                
+                for(j=1;j<=((r/2)-i+1);j++)
+                    bw.write(" ");
+                bw.write("*");
+                for(k=1;k<=temp;k++)
+                    bw.write(" ");
+                temp+=2;
+                bw.write("*\n");
+            }
+         }
+        
+        temp-=2;
+        for(i=1; i<=r/2;i++)
+        {
+           
+            if( i==r/2)
+            {
+                for(j=1;j<=r/2;j++)
+                  bw.write(" ");
+                bw.write("*\n");             
+            }
+            else
+            {
+                
+                for(j=r/2;j<=r/2+i-1;j++)
+                    bw.write(" ");
+                bw.write("*");
+                temp-=2;
+                for(k=temp;k>=1;k--)
+                    bw.write(" ");
+                
+                bw.write("*\n");
+            }
+         }
+        }
+        bw.flush();
+    }
+}        
