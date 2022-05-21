@@ -1,0 +1,8 @@
+class Solution {
+    public int maximumScore(int a, int b, int c) {
+        int ar[] = {a,b,c};
+        Arrays.sort(ar);
+        if(ar[2]>=ar[0]+ar[1])return Math.min(ar[2],ar[0]+ar[1]);
+        return IntStream.of(ar).sum()/2;
+    }
+}
