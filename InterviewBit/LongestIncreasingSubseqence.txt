@@ -1,0 +1,16 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int lis(final List<Integer> A) {
+        int n = A.size();
+        int dp[] = new int[n];
+        Arrays.fill(dp,1);
+        int ans = 1;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(A.get(i)>A.get(j))dp[i] = Math.max(dp[i],1+dp[j]);
+                if(dp[i]>ans)ans = dp[i];
+            }
+        }
+        return ans;
+    }
+}
