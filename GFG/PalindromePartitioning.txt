@@ -1,0 +1,27 @@
+int dp[][] = new int[2001][2001];
+    public int solve(String s,int i,int j){
+        if(i>j || isPalindrome(s,i,j))return 0;
+        if(dp[i][j] != -1)return dp[i][j];
+        
+        int ans = Integer.MAX_VALUE;
+        for(int k=i;k<=j-1;k++){
+            int left = 0;
+             if(dp[i][k]!=-1)left = dp[i][k];
+             else left = solve(s,i,k);
+             int right = 0;
+             if(dp[k+1][j]!=-1)right = dp[k+1][j];
+             else right = solve(s,k+1,j);
+             int temp = 1+left+right;
+             ans = Math.min(ans,temp);
+            
+        }
+        return dp[i][j] = ans;
+    }
+    public boolean isPalindrome(String s,int i,int j){
+        while(i<=j){
+            if(s.charAt(i)!=s.charAt(j))return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
