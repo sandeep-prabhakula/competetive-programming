@@ -1,0 +1,39 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> adj;
+    public int solve(int n, ArrayList<ArrayList<Integer>> B) {
+        if(n==1)return 0;
+        adj = new ArrayList();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList());
+        }
+        construct(B);
+        boolean []vis = new boolean[n];
+        boolean []dfsVis = new boolean[n];
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                if(cycleDir(adj,i,vis,dfsVis))return 1;
+            }
+        }
+        return 0;
+    }
+    public void construct(ArrayList<ArrayList<Integer>> B){
+        for(int i=0;i<B.size();i++){
+            int u = B.get(i).get(0);
+            int v = B.get(i).get(1);
+            adj.get(u-1).add(v-1);
+        }
+    }
+    public boolean cycleDir(ArrayList<ArrayList<Integer>> adj, int i, boolean[] vis,boolean []dfsVis) {
+        if(dfsVis[i])return true;
+        if(vis[i])return false;
+        vis[i] = true;
+        dfsVis[i] = true;
+        for(int k:adj.get(i)){
+            if(!vis[k]){
+                if(cycleDir(adj,k,vis,dfsVis))return true;
+            }else if(dfsVis[k])return true;
+        }
+        dfsVis[i] = false;
+        return false;
+    }
+}

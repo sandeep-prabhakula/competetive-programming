@@ -1,0 +1,30 @@
+class Solution {
+    public boolean isBipartite(int[][] adj) {
+        int n = adj.length;
+        int []vis = new int[n];
+        Arrays.fill(vis,-1);
+        for(int i=0;i<n;i++){
+            if(vis[i]==-1){
+                if(!checkBFS(adj,i,vis))return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkBFS(int[][] adj, int i, int[] vis) {
+        Queue<Integer>q = new LinkedList<>();
+        q.add(i);
+        vis[i] = 0;
+        while(!q.isEmpty()){
+            int node = q.poll();
+            for(int k:adj[node]){
+                if(vis[k]==-1){
+                    q.add(k);
+                    if(vis[node]==0)vis[k] = 1;
+                    else if(vis[node]==1)vis[k] = 0;
+                }
+                else if(vis[k]==vis[node])return false;
+            }
+        }
+        return true;
+    }
+}
