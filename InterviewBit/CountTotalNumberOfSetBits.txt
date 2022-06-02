@@ -1,0 +1,11 @@
+public class Solution {
+    int mod = (int)1e9 + 7;
+    public int solve(int A) {
+
+        long res = 0;
+        for(int i = 1; i <= A; i++){
+            res += Integer.bitCount(i);
+        }
+        return (int)(res%mod);
+    }
+}

@@ -1,0 +1,10 @@
+public class Solution {
+    public int solve(int A, ArrayList<ArrayList<Integer>> B) {
+        for(int i = 0; i < B.size(); i++){
+            if(B.get(i).get(1) == A){
+                return 1;
+            }
+        }
+        return 0;
+    }
+}
