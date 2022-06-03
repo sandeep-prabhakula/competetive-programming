@@ -1,0 +1,43 @@
+public class Solution {
+    Hashtable<TreeNode, TreeNode> rootsMap = new Hashtable<>();
+    
+    public ArrayList<TreeNode> generateTrees(int a) {
+        ArrayList<TreeNode> ans = new ArrayList<>();
+        if(a == 1) {
+            TreeNode single = new TreeNode(a);
+            ans.add(single);
+            return ans;
+        }
+        ArrayList<TreeNode> smallerValueNodes = generateTrees(a-1);
+        for(TreeNode node : smallerValueNodes) {
+            TreeNode root = new TreeNode(a);
+            root.left = node;
+            List<TreeNode> positionRightMost = positionNodeAsRight(a, node);
+            ans.add(root);
+            ans.addAll(positionRightMost);
+        }
+ 
+        return ans;
+    }
+    
+    private List<TreeNode> positionNodeAsRight(int val, TreeNode root) {
+        List<TreeNode> ans = new ArrayList<>();
+        for(TreeNode toTheRightOf=root; toTheRightOf != null; toTheRightOf = toTheRightOf.right) {
+            TreeNode newRoot = new TreeNode(root.val);
+            TreeNode runningCurr = root;
+            TreeNode curr = newRoot;
+            while(runningCurr != toTheRightOf){
+                curr.left = runningCurr.left;
+                curr.right = new TreeNode(runningCurr.right.val);
+                runningCurr = runningCurr.right;
+                curr = curr.right;
+            }
+            curr.right = new TreeNode(val);
+            curr.right.left = toTheRightOf.right;
+            curr.left = toTheRightOf.left;
+            ans.add(newRoot);
+        }
+        return ans;
+    }
+    
+}
