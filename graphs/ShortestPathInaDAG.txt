@@ -1,0 +1,59 @@
+package com.sandeepprabhakula.graphs;
+
+import java.util.*;
+
+public class ShortestPathInaDAG {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        List<List<PairW>>adj = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<m;i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            int w = sc.nextInt();
+            adj.get(u).add(new PairW(v,w));
+        }
+        int src = sc.nextInt();
+        int des = sc.nextInt();
+        shortestPath(adj,n,src,des);
+    }
+    public static void shortestPath(List<List<PairW>>adj, int n,int src,int des){
+        boolean []vis = new boolean[n];
+        Stack<Integer>st = new Stack<>();
+        for(int i=0;i<n;i++){
+            if(!vis[i])findTopSort(adj,st,i,vis);
+        }
+        int []dis = new int[n];
+        dis[src] = 0;
+        Arrays.fill(dis,Integer.MAX_VALUE);
+        while(!st.isEmpty()){
+            int node = st.pop();
+            for(PairW i:adj.get(node)){
+                if(dis[node]+i.weight<dis[i.edge]) {
+                    dis[i.edge] = dis[node]+i.weight;
+                }
+            }
+        }
+        System.out.println(dis[des]);
+    }
+    public static void findTopSort(List<List<PairW>>adj, Stack<Integer> st, int i, boolean[] vis){
+        vis[i] = true;
+        for(PairW k:adj.get(i)){
+            if(!vis[k.edge]) findTopSort(adj,st,k.edge,vis);
+        }
+        st.push(i);
+    }
+}
+
+class PairW {
+    int edge;
+    int weight;
+    PairW(int edge, int weight){
+        this.edge = edge;
+        this.weight = weight;
+    }
+}
