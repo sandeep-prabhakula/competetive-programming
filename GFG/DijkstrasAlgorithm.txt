@@ -1,0 +1,59 @@
+class Pair implements Comparator<Pair>{
+    int vertex;
+    int weight;
+    Pair(){
+        
+    }
+    Pair(int vertex, int weight){
+        this.vertex =vertex;
+        this.weight = weight;
+    }
+    
+    public int compare(Pair p1, Pair p2){
+        if(p1.weight < p2.weight)
+            return 1;
+        else if(p1.weight > p2.weight)
+            return -1;
+        else 
+            return 0;
+    }
+}
+class Solution
+{
+    //Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int s)
+    {
+       //create a distance array
+       //intialize it with integer.maxvalue
+       //create a priority Queue
+       //add a source node to it with its distance in distance array
+       //find all the adjacent nodes 
+       //check if dis[adjacentNode] > distance.source node + adjacent node distance
+       //add in prioirty Queue
+       
+       int[] distance = new int[V];
+       Arrays.fill(distance, Integer.MAX_VALUE);
+       
+       PriorityQueue<Pair> pq = new PriorityQueue<>(V, new Pair());
+       
+       distance[s] = 0;
+       pq.offer(new Pair(s, 0));
+       while(!pq.isEmpty()){
+           Pair node = pq.poll();
+           
+          ArrayList<ArrayList<Integer>> list = adj.get(node.vertex);
+          for(ArrayList<Integer> lists : list){
+              int adjVertex = lists.get(0);
+              int adjWeight = lists.get(1);
+              
+              if(distance[adjVertex] > node.weight + adjWeight)
+              {
+                 distance[adjVertex] = node.weight + adjWeight;
+                 pq.offer(new Pair(adjVertex, distance[adjVertex]));
+              }
+          }
+       }
+       return distance;
+    }
+}
