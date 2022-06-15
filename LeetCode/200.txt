@@ -1,0 +1,33 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int count = 0;
+        int mat[][] = new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                mat[i][j] = grid[i][j]-48;
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==1){
+                    count++;
+                    dfs(i,j,mat);
+                }
+            }
+        }
+        return count;
+    }
+    public static void dfs(int n,int m,int[][]mat){
+        if(n<0 || m<0 ||n>=mat.length || m>=mat[0].length)
+            return;
+        if(mat[n][m]==0)
+            return;
+        mat[n][m] = 0;
+        dfs(n-1,m,mat);
+        dfs(n,m+1,mat);
+        dfs(n+1,m,mat);
+        dfs(n,m-1,mat);
+    }
+}
