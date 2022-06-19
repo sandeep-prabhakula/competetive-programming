@@ -1,0 +1,21 @@
+public class Solution {
+	public static int countPartitions(int n, int d, int[] arr) {
+		int sum = 0;
+        for(int i:arr)sum+=i;
+        int s1 = (d+sum)/2;
+        if(((sum+d)%2)!=0)return 0;
+        return count(arr,s1);
+	}
+    public static int count(int[]a,int sum){
+        int mod = 1000000007;
+        int[][]dp = new int[a.length+1][sum+1];
+        dp[0][0] = 1;
+        for(int i=1;i<a.length+1;i++){
+            for(int j=0;j<sum+1;j++){
+                if(a[i-1]<=j)dp[i][j] = (dp[i-1][j]+dp[i-1][j-a[i-1]])%mod;
+                else dp[i][j] = dp[i-1][j];
+            }
+        }
+        return dp[a.length][sum];
+    }
+}

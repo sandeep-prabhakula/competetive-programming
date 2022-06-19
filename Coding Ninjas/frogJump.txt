@@ -1,0 +1,17 @@
+import java.util.*;
+public class Solution {
+    public static int frogJump(int n, int heights[]) {
+        int[]dp = new int[n+1];
+        Arrays.fill(dp,-1);
+        return jump(n-1,heights,dp);
+    }
+    public static int jump(int n,int[]ar,int []dp){
+        if(n==0)return 0;
+        if(dp[n]!=-1)return dp[n];
+        int first = 0;
+        int second = Integer.MAX_VALUE;
+        first = jump(n-1,ar,dp)+Math.abs(ar[n-1]-ar[n]);
+        if(n>1)second = jump(n-2,ar,dp)+Math.abs(ar[n-2]-ar[n]);
+        return dp[n] = Math.min(first,second);
+    }
+}

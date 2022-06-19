@@ -1,0 +1,26 @@
+public class Solution {
+    public static int unboundedKnapsack(int n, int w, int[] val, int[] wt) {
+        int t[][] = new int[n+1][w+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<w+1;j++){
+                if(i==0||j==0)t[i][j] = 0;
+            }
+        }
+
+        // convert recursive code to iterative
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<w+1;j++){
+                // use "t[i][j]" array instead of function call as in like "knapsack(val,wt,w,n-1)"
+
+                // if wt[i-1] is valid
+                if(wt[i-1]<=j)
+                    t[i][j] = Math.max(val[i-1]+t[i][j-wt[i-1]],t[i-1][j]);
+
+                    // if wt is not valid
+                else
+                    t[i][j] = t[i-1][j];
+            }
+        }
+        return t[n][w];
+    }
+}
