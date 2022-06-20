@@ -1,0 +1,15 @@
+public class Solution {
+    public int adjacent(ArrayList<ArrayList<Integer>> A) {
+        int n = A.get(0).size();
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+        return maxSum(A,dp,n-1);
+    }
+    public static int maxSum(ArrayList<ArrayList<Integer>> A,int[]dp,int n){
+        if(n<0)return 0;
+        if(dp[n]!=-1)return dp[n];
+        int a = Math.max(A.get(0).get(n),A.get(1).get(n))+maxSum(A,dp,n-2);
+        int b = maxSum(A,dp,n-1);
+        return dp[n] = Math.max(a,b);
+    }
+}
