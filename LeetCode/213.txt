@@ -1,0 +1,27 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n==1)return nums[0];
+        List<Integer>t1 = new ArrayList();
+        List<Integer>t2 = new ArrayList();
+        for(int i=0;i<n;i++){
+            if(i!=0)t1.add(nums[i]);
+            if(i!=n-1)t2.add(nums[i]);
+        }
+        return Math.max(maxSum(t1),maxSum(t2));
+    }
+    public static int maxSum(List<Integer>ar){
+        int n = ar.size();
+        int dp[] = new int[n];
+        Arrays.fill(dp,-1);
+        dp[0] = ar.get(0);
+        for(int i=1;i<n;i++){
+            int pick = ar.get(i);
+            if(i>1)
+                pick += dp[i-2];
+            int notPick = 0+dp[i-1];
+            dp[i] = Math.max(pick,notPick);
+        }
+        return dp[n-1];
+    }
+}
