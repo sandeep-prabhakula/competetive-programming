@@ -1,0 +1,15 @@
+public class Solution {
+	public int minimumTotal(ArrayList<ArrayList<Integer>> a) {
+        int n = a.size();
+        int dp[][] = new int[n][n];
+        for(int i[]:dp)Arrays.fill(i,-1);
+        return minPaths(0,0,n,a,dp);
+	}
+    public static int minPaths(int i,int j,int n,ArrayList<ArrayList<Integer>> a,int[][]dp){
+        if(i==n-1)return a.get(n-1).get(j);
+        if(dp[i][j]!=-1)return dp[i][j];
+        int down = a.get(i).get(j)+minPaths(i+1,j,n,a,dp);
+        int diag = a.get(i).get(j)+minPaths(i+1,j+1,n,a,dp);
+        return dp[i][j] = Math.min(down,diag);
+    }
+}

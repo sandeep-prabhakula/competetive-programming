@@ -1,0 +1,21 @@
+public class Solution {
+    public int minPathSum(ArrayList<ArrayList<Integer>> A) {
+        int n = A.size();
+        int m = A.get(0).size();
+        int [][]dp = new int[n][m];
+        for(int[]i:dp)Arrays.fill(i,-1);
+        return paths(n-1,m-1,A,dp);
+    }
+    static int paths(int i, int j, ArrayList<ArrayList<Integer>> m, int[][] dp) {
+        if(i==0 && j == 0)
+            return m.get(0).get(0);
+        if(i<0 || j<0)
+            return (int)Math.pow(10,9);
+        if(dp[i][j]!=-1) return dp[i][j];
+            
+        int up = m.get(i).get(j)+paths(i-1,j,m,dp);
+        int left = m.get(i).get(j)+paths(i,j-1,m,dp);
+        
+        return dp[i][j] = Math.min(up,left);
+    }
+}

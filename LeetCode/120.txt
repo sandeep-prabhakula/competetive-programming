@@ -1,0 +1,15 @@
+class Solution {
+    public int minimumTotal(List<List<Integer>> tri) {
+        int n = tri.size();
+        int dp[][] = new int[n][n];
+        for(int i[]:dp)Arrays.fill(i,-1);
+        return path(0,0,n,tri,dp);
+    }
+    public int path(int i,int j,int n,List<List<Integer>> tri,int dp[][]){
+        if(i==n-1)return tri.get(n-1).get(j);
+        if(dp[i][j]!=-1)return dp[i][j];
+        int down = tri.get(i).get(j)+path(i+1,j,n,tri,dp);
+        int diag = tri.get(i).get(j)+path(i+1,j+1,n,tri,dp);
+        return dp[i][j] = Math.min(down,diag);
+    }
+}
