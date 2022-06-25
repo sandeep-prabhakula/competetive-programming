@@ -1,0 +1,17 @@
+public class Solution {
+    public int solve(ArrayList<ArrayList<Integer>> A) {
+        int n = A.size();
+        int [][]dp = new int[n][n];
+        for(int i[]:dp){
+            Arrays.fill(i,-1);
+        }
+        return paths(0,0,n,A,dp);
+    }
+    public int paths(int i,int j,int n,ArrayList<ArrayList<Integer>> A,int[][]dp){
+        if(i==n-1)return A.get(n-1).get(j);
+        if(dp[i][j]!=-1)return dp[i][j];
+        int down = A.get(i).get(j)+paths(i+1,j,n,A,dp);
+        int diag = A.get(i).get(j)+paths(i+1,j+1,n,A,dp);
+        return dp[i][j] = Math.max(down,diag);
+    }
+}
