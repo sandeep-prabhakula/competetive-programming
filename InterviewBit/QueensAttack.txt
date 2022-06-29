@@ -1,0 +1,29 @@
+public class Solution {
+    public void dfs(String []A, int dp[][], int i, int j, int x, int y) {
+        int n = dp.length, m = dp[0].length;
+        while(i + x >= 0 && i + x < n && j + y >= 0 && j + y < m) {
+            dp[i + x][j + y]++;
+            if(A[i + x].charAt(j + y) == '1') {
+                return;
+            }
+            i += x;
+            j += y;
+        }
+    }
+    public int[][] queenAttack(String[] A) {
+        int n = A.length, m = A[0].length();
+    int dp[][] = new int[n][m];
+    
+    int dirs[][] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {-1, 1}, {1, -1}, {-1, -1}};
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            if(A[i].charAt(j) == '1') {
+                for(int d[] : dirs) {
+                    dfs(A, dp, i, j, d[0], d[1]);
+                }
+            } 
+        }
+    }
+    return dp;
+    }
+}

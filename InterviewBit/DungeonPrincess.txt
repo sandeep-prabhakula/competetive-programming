@@ -1,0 +1,26 @@
+class Solution {
+    public int calculateMinimumHP(int[][] dungeon) {
+        int[][] memo = new int[dungeon.length][dungeon[0].length];
+        for (int i = 0; i < dungeon.length; i++) {
+            Arrays.fill(memo[i], -1);
+        }
+        return dp(dungeon, 0, 0, memo);
+    }
+    
+    int dp(int[][] dungeon, int i, int j, int[][] memo) {
+        if (i == dungeon.length - 1 && j == dungeon[0].length - 1) {
+            return dungeon[i][j] >= 0 ? 1 : Math.abs(dungeon[i][j]) + 1;
+        }
+        
+        if (i < 0 || i >= dungeon.length || j < 0 || j >= dungeon[0].length) {
+            return Integer.MAX_VALUE;
+        }
+        
+        if (memo[i][j] != -1) {
+            return memo[i][j];
+        }
+
+        int res = Math.min(dp(dungeon, i + 1, j, memo), dp(dungeon, i, j + 1, memo)) - dungeon[i][j];
+        return memo[i][j] = res <= 0? 1: res;
+    }
+}
