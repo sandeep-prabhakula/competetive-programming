@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static ArrayList < ArrayList<Integer>> towerOfHanoi(int n) 
+    {
+        int s = 1;
+        int a = 2;
+        int d = 3;
+        ArrayList < ArrayList<Integer>>res = new ArrayList();
+        solve(n,s,a,d,res);
+        return res;
+    }
+    public static void solve(int n,int s,int h,int d,ArrayList < ArrayList<Integer>>res){
+        if(n==1){
+            ArrayList<Integer>temp = new ArrayList();
+            temp.add(s);
+            temp.add(d);
+            res.add(temp);
+            return ;
+        }
+        solve(n-1,s,d,h,res);
+        ArrayList<Integer>temp = new ArrayList();
+        temp.add(s);
+        temp.add(d);
+        res.add(temp);
+        solve(n-1,h,s,d,res);
+    }
+}
