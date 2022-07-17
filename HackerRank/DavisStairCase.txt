@@ -1,0 +1,64 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'stepPerms' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts INTEGER n as parameter.
+     */
+
+    public static int stepPerms(int n) {
+        int i = 0;
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+        return f(i,n,dp);
+    }
+    static int mod = 1000000007;
+    public static int f(int i,int n,int[]dp){
+        if(i==n)return 1;
+        if(i>n)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int one = f(i+1,n,dp)%mod;
+        int two = f(i+2,n,dp)%mod;
+        int three = f(i+3,n,dp)%mod;
+        return dp[i] = one+two+three;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int s = Integer.parseInt(bufferedReader.readLine().trim());
+
+        IntStream.range(0, s).forEach(sItr -> {
+            try {
+                int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+                int res = Result.stepPerms(n);
+
+                bufferedWriter.write(String.valueOf(res));
+                bufferedWriter.newLine();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}

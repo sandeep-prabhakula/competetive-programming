@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            long n = Long.parseLong(br.readLine());
+            long res = n & 0xAAAAAAAA;
+            res = res>>1;
+            long res1 = n & 0x55555555;
+            res1 = res1<<1;
+            res = res | res1;
+            bw.write(res+"\n");
+        }
+        bw.flush();
+    }
+}
