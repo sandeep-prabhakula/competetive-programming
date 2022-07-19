@@ -1,0 +1,23 @@
+import java.util.*;
+public class Solution {
+    static int mod = 1000000007;
+    public static int subsequenceCounting(String t, String s, int lt, int ls) {
+        int dp[][] = new int[lt+1][ls+1];
+        for(int i=0;i<lt+1;i++){
+            dp[i][0] = 1;
+        }
+        for(int i=1;i<lt+1;i++){
+            for(int j=1;j<ls+1;j++){
+                if(s.charAt(j-1)==t.charAt(i-1)){
+                    dp[i][j] = (dp[i-1][j-1]+dp[i-1][j]);
+                    dp[i][j] =dp[i][j]%mod;
+                }
+                else {
+                    dp[i][j] = (dp[i-1][j]);
+                    dp[i][j] = dp[i][j]%mod;
+                }
+            }
+        }
+        return dp[lt][ls]%mod;
+    }
+}
