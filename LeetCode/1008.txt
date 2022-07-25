@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode bstFromPreorder(int[] p) {
+        TreeNode root = new TreeNode(p[0]);
+        TreeNode temp = root;
+        TreeNode t = null;
+        for(int i:p) t = insertBST(temp,i);
+        return root;
+    }
+    public TreeNode insertBST(TreeNode root,int i){
+        if(root==null)return new TreeNode(i);
+        if(root.val>i)root.left = insertBST(root.left,i);
+        if(root.val<i)root.right = insertBST(root.right,i);
+        return root;
+    }
+}

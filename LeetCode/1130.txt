@@ -1,0 +1,37 @@
+class Solution {
+    public int mctFromLeafValues(int[] arr) {
+        int n = arr.length;
+        return res(arr,0,n-1,new int[n+1][n+1]);
+    }
+    public int res(int[]a,int s,int e,int dp[][]){
+        //BaseCase return when the pointers overlap
+        if(s>=e)return 0;
+        //check for the value in cache
+        if(dp[s][e]!=0)return dp[s][e];
+        
+        int rs = Integer.MAX_VALUE;
+        // for every leaf node 
+        for(int i=s;i<e;i++){
+            //find the left node 
+            int left = res(a,s,i,dp);
+            //find the right node
+            int right = res(a,i+1,e,dp);
+            
+            // find max in left subtree;
+            int maxL = 0;
+            for(int j=s;j<=i;j++){
+                maxL = Math.max(maxL,a[j]);
+            }
+            
+            // find max in right subtree
+            int maxR = 0;
+            for(int j=i+1;j<=e;j++){
+                maxR = Math.max(maxR,a[j]);
+            }
+            
+            // find the min of previous result and product of maxLeft and maxRight and summed up with remaining left and right right tree;
+            rs = Math.min(rs,(maxL*maxR)+left+right);
+        }
+        return dp[s][e] = rs;
+    }
+}
