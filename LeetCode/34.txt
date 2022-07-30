@@ -1,0 +1,19 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int res[] = new int[2];
+        res[0] = first(nums,target);
+        res[1] = last(nums,target);
+        return res;
+    }
+    public static int first(int[]nums,int target){
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==target)return i;
+        }
+        return -1;
+    }
+    public static int last(int[]nums,int target){
+        for(int i=nums.length-1;i>=0;i--){
+            if(nums[i]==target)return i;
+        }return -1;
+    }
+}

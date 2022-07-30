@@ -1,0 +1,25 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+        if (dividend == 0 || divisor == 1) return dividend;
+        if (divisor == 0) return 0;
+        long result = 0, lDividend = dividend, lDivisor = divisor;
+        boolean neg = false;
+        
+        if (lDividend < 0 && lDivisor > 0) {
+            neg = true;
+            lDividend = lDividend + (0-lDividend) + (0-lDividend);
+        } else if (lDividend > 0 && lDivisor < 0) {
+            neg = true;
+            lDivisor = lDivisor + (0-lDivisor) + (0-lDivisor);
+        } else if (lDividend < 0 && lDivisor < 0) {
+            lDividend = lDividend + (0-lDividend) + (0-lDividend);
+            lDivisor = lDivisor + (0-lDivisor) + (0-lDivisor);
+        }
+        for (; lDividend >= lDivisor;) {
+            result++;
+            lDividend -= lDivisor;
+        }
+        int ret = (result == 2147483648L) ? 2147483647 : (int) result;
+        return neg ? (0-ret) : ret;  
+    }
+}

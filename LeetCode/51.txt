@@ -1,0 +1,40 @@
+class Solution {
+    boolean neg_dia[];
+    boolean pos_dia[];
+    boolean col[];
+    public List<List<String>> solveNQueens(int n) {
+        neg_dia = new boolean[2*n-1];
+        pos_dia = new boolean[2*n-1];
+        col = new boolean[n];
+        
+        char board[][] = new char[n][n];
+        for(char[]i:board){
+            Arrays.fill(i,'.');
+        }
+        List<List<String>> res=new ArrayList<>();        
+        placeQueen(board,0,res,n);
+        return res;
+    }
+    public void placeQueen(char[][]board,int row,List<List<String>>ans,int n){
+        if(row==n){
+            List<String>temp = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                temp.add(String.valueOf(board[i]));
+            }
+            ans.add(temp);
+            return ;
+        }
+        for(int j=0;j<n;j++){
+            if(neg_dia[row-j+n-1]||pos_dia[row+j]||col[j])continue;
+            neg_dia[row-j+n-1] = true;
+            pos_dia[row+j] = true;
+            col[j] = true;
+            board[row][j] = 'Q';
+            placeQueen(board,row+1,ans,n);
+            board[row][j] = '.';
+            neg_dia[row-j+n-1] = false;
+            pos_dia[row+j] = false;
+            col[j] = false;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int front = 0;
+        int back = numbers.length -1;
+        boolean isFound = false;
+        
+        while(!isFound) {
+            while(numbers[front] < target - numbers[back]) front++;
+            while(numbers[back] > target - numbers[front]) back--;
+            if(numbers[front] + numbers[back] == target) isFound = true;
+        }
+        int[] indices = new int[2];
+        indices[0] = front + 1;
+        indices[1] = back + 1;
+        return indices;
+    }
+}
