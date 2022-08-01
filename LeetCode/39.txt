@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] ar, int sum) {
+        List<List<Integer>>res = new ArrayList();
+        f(0,ar.length,ar,sum,res,new ArrayList());;
+        return res;
+    }
+    public void f(int i,int n,int []ar,int sum,List<List<Integer>>res,ArrayList<Integer>ds){
+        if(i==n){
+            if(sum==0)res.add(new ArrayList(ds));
+            return ;
+        }
+        if(ar[i]<=sum){
+            ds.add(ar[i]);
+            f(i,n,ar,sum-ar[i],res,ds);
+            ds.remove(ds.size()-1);
+        }
+        f(i+1,n,ar,sum,res,ds);
+    }
+}
