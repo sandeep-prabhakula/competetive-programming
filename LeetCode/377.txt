@@ -1,0 +1,19 @@
+class Solution {
+    public int combinationSum4(int[] nums, int target) {
+        int []dp = new int[target+1];
+        Arrays.fill(dp,-1);
+        return f(nums,target,nums.length,dp);
+    }
+    public int f(int[]ar,int target,int n,int[]dp){
+        if(target<0)return 0;
+        if(target==0)return 1;
+        if(dp[target]!=-1)return dp[target];
+        
+        int ways = 0;
+        for(int i=0;i<n;i++){
+            ways += f(ar,target-ar[i],n,dp);
+        }
+        dp[target] = ways;
+        return ways;
+    }
+}

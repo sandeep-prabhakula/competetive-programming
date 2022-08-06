@@ -1,0 +1,21 @@
+class Solution {
+    public int findCheapestPrice(int n, int[][] edges, int src, int dst, int k) {
+        int[]dist = new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+	    dist[src] = 0;
+	    for(int i = 0;i<=k;i++)
+	    {
+            int[] temp = dist.clone();
+	        for(int[]u: edges)
+	        {
+	            if(dist[u[0]]!=Integer.MAX_VALUE &&temp[u[1]] > dist[u[0]] + u[2])
+	            {
+	                temp[u[1]] = dist[u[0]] + u[2];
+	            }
+	        }
+            dist = temp.clone();
+	    }
+        if(dist[dst] == Integer.MAX_VALUE) return -1;
+        return dist[dst];
+    }
+}

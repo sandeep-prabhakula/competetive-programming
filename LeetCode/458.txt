@@ -1,0 +1,8 @@
+class Solution {
+    public int poorPigs(int buckets, int Die, int Test) {
+        double b = (double)buckets;
+        double d = (double)Die;
+        double t = (double)Test;
+        return (int)Math.ceil(Math.log(b)/Math.log(t/d+1));       
+    }
+}

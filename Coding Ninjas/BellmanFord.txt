@@ -1,0 +1,19 @@
+import java.util.*;
+public class Solution {
+    static int bellmonFord(int n, int m, int src, int dest, ArrayList<ArrayList<Integer>> adj) {
+      int dist[] = new int[n+1];
+        Arrays.fill(dist,1000000000);
+        dist[src] = 0;
+        for(int i=1;i<=n-1;i++){
+            for(ArrayList<Integer>it:adj){
+                int u = it.get(0);
+                int v = it.get(1);
+                int wt = it.get(2);
+                if(dist[u]!=1000000000 && dist[u]+wt<dist[v])
+                dist[v] = dist[u]+wt;
+            }
+        }
+        return dist[dest];
+    }
+    
+}
