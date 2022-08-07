@@ -20,20 +20,19 @@ class Result {
      */
 
     public static int stepPerms(int n) {
-        int i = 0;
         int dp[] = new int[n+1];
         Arrays.fill(dp,-1);
-        return f(i,n,dp);
+        return f(n,dp);
     }
     static int mod = 1000000007;
-    public static int f(int i,int n,int[]dp){
-        if(i==n)return 1;
-        if(i>n)return 0;
+    public static int f(int i,int[]dp){
+        if(i==0)return 1;
+        if(i<0)return 0;
         if(dp[i]!=-1)return dp[i];
-        int one = f(i+1,n,dp)%mod;
-        int two = f(i+2,n,dp)%mod;
-        int three = f(i+3,n,dp)%mod;
-        return dp[i] = one+two+three;
+        dp[i] = f(i-1,dp);
+        dp[i] = dp[i]+f(i-2,dp);
+        dp[i] = dp[i]+f(i-3,dp);
+        return dp[i];
     }
 
 }

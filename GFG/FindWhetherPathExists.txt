@@ -1,0 +1,70 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            int n = Integer.parseInt(br.readLine().trim());
+            int[][] grid = new int[n][n];
+            for(int i = 0; i < n; i++){
+                String[] S = br.readLine().trim().split(" ");
+                for(int j = 0; j < n; j++){
+                    grid[i][j] = Integer.parseInt(S[j]);
+                }
+            }
+            Solution obj = new Solution();
+            boolean ans = obj.is_Possible(grid);
+            if(ans)
+                System.out.println("1");
+            else 
+                System.out.println("0");
+        }
+    }
+}
+// } Driver Code Ends
+
+
+
+class Solution
+{
+    boolean ans = false;
+    public boolean is_Possible(int[][] grid)
+    {
+        int x =0 , y = 0;
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int[][] vis = new int[rows][cols];
+        outerloop:
+        for (int i=0;i<rows;i++) {
+            for (int j=0;j<cols;j++) {
+                if (grid[i][j] == 1) {
+                    x = i;
+                    y = j;
+                    break outerloop;
+                }
+            }
+        }
+        dfs(grid, vis, x, y);
+        return ans;
+    }
+    public void dfs(int[][] grid, int [][] vis, int x, int y) {
+        if (x<0 || x>grid.length-1 || y<0 || y>grid[0].length-1 || grid[x][y]==0 || vis[x][y]==1) {
+            return;
+        }
+        if (grid[x][y]==2) {
+            ans = true;
+            return;
+        }
+        vis[x][y]=1;
+        dfs(grid, vis, x, y-1);
+        dfs(grid, vis, x, y+1);
+        dfs(grid, vis, x-1, y);
+        dfs(grid, vis, x+1, y);
+    }
+}
