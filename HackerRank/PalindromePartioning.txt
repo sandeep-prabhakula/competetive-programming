@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args)throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            int n = Integer.parseInt(br.readLine());
+            String str = br.readLine();
+            int ans = palindromePartioning(str)-1;
+            bw.write(ans+"\n");
+        }
+        bw.flush();
+    }
+    public static int palindromePartioning(String str){
+        int n = str.length();
+        int[]dp = new int[n];
+        Arrays.fill(dp,-1);
+        return f(0,n,str,dp);
+    }
+    public static int f(int i,int n,String a,int[]dp){
+        if(i==n)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int minCost = Integer.MAX_VALUE;
+        for(int j=i;j<n;j++){
+            if(isPalindrome(i,j,a)){
+                int cost = 1+f(j+1,n,a,dp);
+                minCost = Math.min(cost,minCost);
+            }
+        }
+        return dp[i] = minCost;
+    }
+    public static boolean isPalindrome(int i,int j,String str){
+        while(i<j){
+            if(str.charAt(i)!= str.charAt(j))return false;
+            i++;
+            j--;
+        }
+        return true;
+    }
+}

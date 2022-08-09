@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        while(t-->0){
+            String []temp = br.readLine().split(" ");
+            int n = Integer.parseInt(temp[0]);
+            int m = Integer.parseInt(temp[1]);
+            ArrayList<String>grid = new ArrayList();
+            for(int i=0;i<n;i++){
+                String row = br.readLine();
+                grid.add(row);
+            }
+            int count = driverMethod(n,m,grid);
+            bw.write(count+"\n");
+        }
+        bw.flush();
+    }
+    public static int driverMethod(int n,int m,ArrayList<String>gr){
+        char[][] grid = new char[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                grid[i][j] = gr.get(i).charAt(j);
+            }
+        }
+        int count = 0;
+        boolean[][]vis = new boolean[n+1][m+1];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(!vis[i][j]&&grid[i][j]=='1'){
+                    count++;
+                    bfs(i,j,vis,grid);
+                }
+            }
+        }
+        return count;
+    }
+    public static void bfs(int ro,int co,boolean[][]vis,char[][]grid){
+        int n = grid.length;
+        int m = grid[0].length;
+        if(ro<0 || ro>=n||co<0 ||co>=m||grid[ro][co]=='0'||vis[ro][co])return ;
+        vis[ro][co] = true;
+        if(grid[ro][co]=='1'){
+            bfs(ro,co-1,vis,grid);
+            bfs(ro,co+1,vis,grid);
+            bfs(ro-1,co,vis,grid);
+            bfs(ro+1,co,vis,grid);
+            bfs(ro-1,co-1,vis,grid);
+            bfs(ro-1,co+1,vis,grid);
+            bfs(ro+1,co-1,vis,grid);
+            bfs(ro+1,co+1,vis,grid);
+        }
+    }
+}
+class Pair{
+    int first;
+    int second;
+    Pair(int first,int second){
+        this.first = first;
+        this.second = second;
+    }
+}

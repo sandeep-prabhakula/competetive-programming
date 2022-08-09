@@ -1,0 +1,87 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] s = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int[][] grid = new int[n][m];
+            for(int i = 0; i < n; i++){
+                String[] S = br.readLine().trim().split(" ");
+                for(int j = 0; j < m; j++){
+                    grid[i][j] = Integer.parseInt(S[j]);
+                }
+            }
+            Solution obj = new Solution();
+            int ans = obj.orangesRotting(grid);
+            System.out.println(ans);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to find minimum time required to rot all oranges. 
+    public int orangesRotting(int[][] grid)
+    {
+        int n = grid.length;
+        int m = grid[0].length;
+        int vis[][] = new int[n+1][m+1];
+        Queue<Pair>q = new LinkedList();
+        int countFresh = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1)countFresh++;
+                else if(grid[i][j]==2){
+                    vis[i][j] = 2;
+                    q.add(new Pair(i,j,0));
+                }
+                else vis[i][j] = 0;
+            }
+        }
+        int t = 0;
+        int[]dx = {-1,0,1,0};
+        int[]dy = {0,1,0,-1};
+        while(!q.isEmpty()){
+            int r = q.peek().r;
+            int c = q.peek().c;
+            int tm = q.peek().tm;
+            t = Math.max(tm,t);
+            q.remove();
+            for(int i=0;i<4;i++){
+                int nr = r+dx[i];
+                int nc = c+dy[i];
+                if(nr>=0 && nr<n && nc>=0 && nc<m && vis[nr][nc]!=2 && grid[nr][nc]==1){
+                    q.add(new Pair(nr,nc,t+1));
+                    vis[nr][nc] = 2;
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]!=2 && grid[i][j]==1)return -1;
+            }
+        }
+        return t;
+    }
+}
+class Pair{
+    int r;
+    int c;
+    int tm;
+    Pair(int r,int c,int tm){
+        this.r = r;
+        this.c = c;
+        this.tm = tm;
+    }
+}
