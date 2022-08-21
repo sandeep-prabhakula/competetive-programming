@@ -1,0 +1,47 @@
+// 01 Matrix
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        boolean[][] vis = new boolean[n][m];
+        int[][]res = new int[n][m];
+        Queue<Pair>q = new LinkedList();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0){
+                    q.add(new Pair(i,j,0));
+                    vis[i][j] = true;
+                }
+            }
+        }
+        int dx[] = {-1,0,1,0};
+        int dy[] = {0,1,0,-1};
+        while(!q.isEmpty()){
+            Pair node = q.poll();
+            int src = node.src;
+            int des = node.des;
+            int wt = node.wt;
+            res[src][des] = wt;
+            for(int i=0;i<4;i++){
+                int x = src+dx[i];
+                int y = des+dy[i];
+                if(x>=0 && x<n &&y>=0 &&y<m && !vis[x][y]){
+                    vis[x][y] = true;
+                    q.add(new Pair(x,y,wt+1));
+                }
+            }
+        }
+        return res;
+    }
+}
+class Pair{
+    int src;
+    int des;
+    int wt;
+    Pair(int src,int des,int wt){
+        this.src = src;
+        this.des = des;
+        this.wt = wt;
+    }
+    Pair(){}
+}
