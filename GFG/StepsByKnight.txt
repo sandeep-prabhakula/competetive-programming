@@ -1,0 +1,45 @@
+class Solution{
+   public static class Pair{
+       int row;
+       int col;
+       int move;
+       
+       Pair(int row, int col, int move){
+           this.row = row;
+           this.col = col;
+           this.move = move;
+       }
+   }
+   private int[] xMove = new int[]{1, 1, 2, 2, -1, -1, -2, -2};
+   private int[] yMove = new int[]{2, -2, 1, -1, 2, -2, 1, -1};
+   
+   public int minStepToReachTarget(int KnightPos[], int TargetPos[], int N){
+       boolean[][] visited = new boolean[N+1][N+1];
+       Queue<Pair> q = new LinkedList<>();
+       q.offer(new Pair(KnightPos[0], KnightPos[1], 0));
+       visited[KnightPos[0]][KnightPos[1]] = true;
+       
+       while(!q.isEmpty()){
+           Pair rem = q.poll();
+           int x = rem.row;
+           int y = rem.col;
+           int dist = rem.move;
+           visited[x][y] = true;
+           
+           if(x == TargetPos[0] && y == TargetPos[1]){
+               return dist;
+           }
+           
+           for(int i=0; i< 8; i++){
+               int X = x + xMove[i];
+               int Y = y + yMove[i];
+               
+               if(X >=1 && X<=N && Y >=1 && Y <=N && !visited[X][Y]){
+                   q.offer(new Pair(X, Y, dist +1));
+                   visited[X][Y] = true;
+               }
+           }
+       }
+       return 0;
+   }
+}

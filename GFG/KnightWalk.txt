@@ -1,0 +1,73 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            int N = Integer.parseInt(br.readLine().trim());
+            String[] S1 = br.readLine().trim().split(" ");
+            String[] S2 = br.readLine().trim().split(" ");
+            int[] KnightPos = new int[2];
+            int[] TargetPos = new int[2];
+            for(int i = 0; i < 2; i++){
+                KnightPos[i] = Integer.parseInt(S1[i]);
+                TargetPos[i] = Integer.parseInt(S2[i]);
+            }
+            Solution obj = new Solution();
+            int ans = obj.minStepToReachTarget(KnightPos, TargetPos, N);
+            System.out.println(ans);
+       }
+    }
+}
+
+// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to find out minimum steps Knight needs to reach target position.
+    public int minStepToReachTarget(int src[], int des[], int N)
+    {
+        int dx[] = {-2,-2,2,2,-1,1,-1,1};
+        int dy[] = {-1,1,-1,1,-2,-2,2,2};
+
+        Queue<Pair>q = new LinkedList();
+        boolean[][]vis = new boolean[N+1][N+1];
+
+        q.add(new Pair(src[0],src[1],0));
+        vis[src[0]][src[1]] = true;
+        while(!q.isEmpty()){
+            Pair node = q.poll();
+            int r = node.row;
+            int c = node.col;
+            int dis = node.dis;
+            vis[r][c] = true;
+            if(r == des[0] && c == des[1])return dis;
+            for(int i=0;i<8;i++){
+                int x = r+dx[i];
+                int y = c+dy[i];
+                if(x>=1 && x<=N && y>=1 && y<=N && !vis[x][y]){
+                    q.add(new Pair(x,y,dis+1));
+                    vis[x][y] = true;
+                }
+            }
+        }
+        return -1;
+    }
+}
+class Pair{
+    int row;
+    int col;
+    int dis;
+    Pair(int row,int col,int dis){
+        this.row = row;
+        this.col = col;
+        this.dis = dis;
+    }
+}
