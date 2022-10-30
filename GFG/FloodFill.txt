@@ -1,0 +1,86 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] S1 = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(S1[0]);
+            int m = Integer.parseInt(S1[1]);
+            int[][] image =  new int[n][m];
+            for(int i = 0; i < n; i++){
+                String[] S2 = br.readLine().trim().split(" ");
+                for(int j = 0; j < m; j++)
+                    image[i][j] = Integer.parseInt(S2[j]);
+            }
+            String[] S3 = br.readLine().trim().split(" ");
+            int sr = Integer.parseInt(S3[0]);
+            int sc = Integer.parseInt(S3[1]);
+            int newColor = Integer.parseInt(S3[2]);
+            Solution obj = new Solution();
+            int[][] ans = obj.floodFill(image, sr, sc, newColor);
+            for(int i = 0; i < ans.length; i++){
+                for(int j = 0; j < ans[i].length; j++)
+                    System.out.print(ans[i][j] + " ");
+                System.out.println();
+            }
+        }
+    }
+}
+
+// } Driver Code Ends
+
+
+class Solution
+{
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor)
+    {
+        int n = image.length;
+        int m = image[0].length;
+        boolean [][]vis = new boolean[n+1][m+1];
+        
+        int inc = image[sr][sc];
+        bfs(sr,sc,n,m,image,vis,inc,newColor);
+        return image;
+    }
+    public void bfs(int sr,int sc,int n,int m,int[][]image,boolean[][]vis,int inc,int newColor){
+        Queue<Pair>q = new LinkedList<>();
+        q.add(new Pair(sr,sc));
+        vis[sr][sc] = true;
+        image[sr][sc] = newColor;
+        int dx[] = {0,0,1,-1};
+        int dy[] = {1,-1,0,0};
+        while(!q.isEmpty()){
+            Pair node = q.poll();
+            int a = node.first;
+            int b = node.second;
+            for(int i=0;i<4;i++){
+                int x = a+dx[i];
+                int y = b+dy[i];
+                if(isSafe(x,y,n,m,vis,image,inc)){
+                    image[x][y] = newColor;
+                    vis[x][y] = true;
+                    q.add(new Pair(x,y));
+                }
+            }
+        }
+    }
+    public static boolean isSafe(int x,int y,int n,int m,boolean[][]vis,int [][]image,int stc){
+        if(x<0 || x>=n ||y<0 ||y>=m ||vis[x][y]==true||image[x][y]!=stc)return false;
+        return true;
+    }
+}
+class Pair{
+    int first;
+    int second;
+    Pair(int first,int second){
+        this.first = first;
+        this.second = second;
+    }
+}

@@ -1,0 +1,90 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] s = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(s[0]);
+            int[][] grid = new int[n][n];
+            for(int i = 0; i < n; i++){
+                String[] S = br.readLine().trim().split(" ");
+                for(int j = 0; j < n; j++){
+                    grid[i][j] = Integer.parseInt(S[j]);
+                }
+            }
+            Solution obj = new Solution();
+            int ans = obj.minimumCostPath(grid);
+            System.out.println(ans);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to return the minimum cost to react at bottom
+	//right cell from top left cell.
+    public int minimumCostPath(int[][] grid)
+    {
+        PriorityQueue<Pair>pq = new PriorityQueue(new Comparator<Pair>(){
+            @Override
+            public int compare(Pair p1,Pair p2){
+                return p1.dis - p2.dis;
+            }
+        });
+        
+        int dx[] = {1,-1,0,0};
+        int dy[] = {0,0,1,-1};
+        
+        int n = grid.length;
+        int dist[][] = new int[n][n];
+        boolean vis[][] = new boolean [n+1][n+1];
+        
+        for(int a[]:dist)Arrays.fill(a,Integer.MAX_VALUE);
+        
+        dist[0][0] = grid[0][0];
+        pq.add(new Pair(0,0,grid[0][0]));
+        vis[0][0] = true;
+        
+        while(!pq.isEmpty()){
+            Pair p = pq.poll();
+            
+            int i = p.first;
+            int j = p.second;
+            int dis = p.dis;
+            
+            for(int k=0;k<4;k++){
+                int x = i+dx[k];
+                int y = j+dy[k];
+                
+                if(x<n && x>=0 && y<n && y>=0){
+                    if(!vis[x][y]){
+                        vis[x][y] = true;
+                        pq.add(new Pair(x,y,dis+grid[x][y]));
+                    }
+                    dist[x][y] = Math.min(dist[x][y],grid[x][y]+dis);
+                }
+            }
+        }
+        
+        return dist[n-1][n-1];
+    }
+}
+class Pair {
+    int first;
+    int second;
+    int dis;
+    Pair(int first,int second,int dis){
+        this.first = first;
+        this.second = second;
+        this.dis = dis;
+    }
+}
