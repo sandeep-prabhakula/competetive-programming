@@ -1,0 +1,20 @@
+class Solution {
+    int mod = 1000000007;
+    public int countGoodStrings(int low, int high, int zero, int one) {
+        int ans = 0;
+        int dp[] = new int[high+1];
+        Arrays.fill(dp,-1);
+        for(int i=low;i<=high;i++){
+            ans = ((ans%mod)+solve(i,one,zero,dp))%mod;
+        }
+        return ans;
+    }
+    public int solve(int i,int one,int zero,int[]dp){
+        if(i==0)return 1;
+        if(i<0)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int sum = 0;
+        sum = solve(i-one,one,zero,dp)+solve(i-zero,one,zero,dp);
+        return dp[i] = sum%mod;
+    }
+}
