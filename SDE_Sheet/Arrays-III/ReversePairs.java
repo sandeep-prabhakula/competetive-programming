@@ -1,16 +1,28 @@
-public class MergeSort{
-    public static void main(String[]args){
-	// call for merge sort
+class Solution {
+    int count = 0;
+    public int reversePairs(int[] nums) {
+        int n = nums.length;
+        mergeSort(nums,0,n-1);
+        return count;
     }
-    public static void mergeSort(long[]arr,int l,int h){
-        if(l==h)return;
-        int mid = (h+l)/2;
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid+1, h);
-        merge(arr,l,mid,h);
+    public void mergeSort(int[]arr,int low,int high){
+        if(low==high)return;
+        int mid = (low+high)/2;
+        mergeSort(arr,low,mid);
+        mergeSort(arr,mid+1,high);
+        countPairs(arr,low,mid,high);
+        merge(arr,low,mid,high);
     }
-    
-    public static void merge(int[]arr,int l,int mid,int h){
+    public void countPairs(int[]arr,int l,int mid,int h){
+        int right = mid+1;
+        for(int i=l;i<=mid;i++){
+            while(right<=h && arr[i]>2*arr[right]){
+                right++;
+            }
+            count = count+(right-(mid+1));
+        }
+    }
+    public void merge(int[]arr,int l,int mid,int h){
         int left = l;
         int right = mid+1;
         
@@ -36,5 +48,4 @@ public class MergeSort{
             arr[i] = list.get(k++);
         }
     }
-
 }
